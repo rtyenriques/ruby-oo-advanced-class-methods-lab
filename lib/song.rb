@@ -12,7 +12,7 @@ class Song
 
   def self.create
     song = self.new
-    self.all << song
+    @@all << song
     song
   end
 
@@ -20,32 +20,31 @@ class Song
     song = self.new
     song.name = title
     song
-    
   end
-
-  def self.create_by_name(title) #class constructor
+    
+  def self.create_by_name(newname)
+    
     song = self.create
-    song.name = title
+    song.name = newname
     song
   end
 
-  def self.find_by_name(title) #class finder
-    result = self.all.detect {|song| song.name == title}
-    result
+  def self.find_by_name(title)
+    self.all.find {|n| n.name == title}
   end
 
+
   def self.find_or_create_by_name(title)
-    #either return a matching song instance with that name or create a new song with the name and return the song instance
     result = self.find_by_name(title)
     if result
       result
     else
-      self.create_by_name(title)
+     self.create_by_name(title)
     end
   end
 
   def self.alphabetical
-    sorted = self.all.sort_by {|song| song.name}
+    sorted =self.all.sort_by {|song| song.name}
     sorted
   end
 
@@ -69,4 +68,12 @@ class Song
   def self.destroy_all
     self.all.clear
   end
-end
+
+
+    
+      
+
+    
+
+
+end 
